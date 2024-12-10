@@ -1,0 +1,30 @@
+Enter recipe name:
+==================
+Ackee and Saltfish Fritters
+
+Enter ingredients (comma-separated):
+====================================
+2 cup salted Cod fish (soaked overnight),2 cloves garlic,1/2 medium onion,1 tsp thyme,1 tbsp cilantro,1 scallion (finely chopped),1/4 scotch bonnet pepper (seeds removed),1 cup all purpose flour,1 tsp baking powder,1/2 cup ackee,3/4 cup water,Canola oil
+
+Enter cooking instructions:
+===========================
+1. Place saltfish in a bowl and cover with water, allow to soak overnight to remove the excess salt.
+2. Place garlic, thyme, onion, pepper, cilantro and scallion into food processor and pulse until finely chopped. 
+3. Place seasoning mixture in a large bowl. 
+4. Drain saltfish then use a fork to flake the saltfish. 
+5. Place saltfish into food processor and pulse 3 or 4 times until finely shredded. 
+6. Add shredded codfish and ackee to the bowl with the seasoning and mix. 
+7. Add flour and baking powder then stir to combine. 
+8. Add water and stir to form a batter.
+9. Place canola oil in a deep sauce pan. The oil needs to be about 3 inches deep. 
+10. Heat oil over a medium fire until the oil is hot.
+11. Use a small spoon to drop spoonfuls of batter into hot oil.
+12. Fry until golden brown.
+
+Enter tags (comma-separated):
+=============================
+Ackee,Saltfish,Fritters,Fish,Codfish
+
+Enter Image File Path:
+======================
+/home/ec2-user/environment/virtual_recipe_box/manual_input_samples/ackee_saltfish_fritters.jpg

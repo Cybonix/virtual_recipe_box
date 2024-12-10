@@ -1,0 +1,30 @@
+Enter recipe name:
+==================
+Saltfish Fritters
+
+Enter ingredients (comma-separated):
+====================================
+1/4 pound Raw Saltfish (Codfish),1 medium sized Tomato,1 medium sized Onion,1/4 pound All-Purpose Flour,1/4 teaspoon Hot Pepper,1 small Clove Garlic,1 teaspoon Paprika,2 Stalks Scallion (or Leeks),Vegetable Oil (use a moderate amount)
+
+Enter cooking instructions:
+===========================
+1. Soak the codfish for at least 3 hours in water.
+2. Boil codfish for 10 minutes in uncovered pot for 5-10 minutes, then drain water.
+3. Shred codfish finely (debone also if necessary).
+4. Chop finely, onions, garlic, scallion or leeks, hot pepper and tomatoes.
+5. Place codfish in a mixing bowl, and add flour and sufficient cold water to make a thin batter similar to that of pancakes.
+6. Stir batter until smooth, then add chopped seasoning.
+7. Have a skillet or frying pan well heated with oil for frying.
+8. Spoon the batter into the skillet or frying pan, similar to how you would for pancakes.
+9. Use a knife to spread each fritter thinly.
+10. Fry until golden brown and crisp on both sides.
+11. Drain on paper towels and keep in a dish until you are ready to serve.
+12. Serve hot.
+
+Enter tags (comma-separated):
+=============================
+Easy,Saltfish,Fritters,Fish,Cod,Codfish
+
+Enter Image File Path:
+======================
+/home/ec2-user/environment/virtual_recipe_box/manual_input_samples/saltfish_fritters.jpg
