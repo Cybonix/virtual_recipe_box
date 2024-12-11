@@ -1,5 +1,7 @@
 # Virtual Recipe Box
 
+The Virtual Recipe Box is a Python application designed to help users manage their favorite recipes with ease, leveraging the power of AWS services. The application provides a seamless way to organize, search, edit, delete, and export recipes, whether they are entered manually or uploaded as PDFs.
+
 This is a Python-based menu-driven application to manage recipes using AWS DynamoDB and S3.  DynamoDB stores recipe metadata (e.g., ingredients, instructions, tags, etc..).
 S3 stores uploaded PDF recipe files, images, and application generated PDFs for export.
 
