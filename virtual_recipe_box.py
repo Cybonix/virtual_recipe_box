@@ -33,7 +33,7 @@ def add_recipe_manual():
     # ... rest of the code ...
 
     # Save the image locally
-    if 'image_path' in locals() and os.path.exists(image_path):
+    if 'image_path' in locals() and 'image_input' in locals() and os.path.exists(image_path):
         image_local_path = f"images/{recipe_name.replace(' ', '_')}_{str(uuid.uuid4())}.jpg"
         os.makedirs(os.path.dirname(image_local_path), exist_ok=True)
         with open(image_local_path, 'wb') as image_file:
