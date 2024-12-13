@@ -4,6 +4,7 @@ import uuid
 import PyPDF2
 import os
 import sqlite3
+import atexit
 
 # SQLite Database Connection
 conn = sqlite3.connect('recipes.db')
@@ -32,7 +33,7 @@ def add_recipe_manual():
     # ... rest of the code ...
 
     # Save the image locally
-    if image_path and os.path.exists(image_path):
+    if 'image_path' in locals() and os.path.exists(image_path):
         image_local_path = f"images/{recipe_name.replace(' ', '_')}_{str(uuid.uuid4())}.jpg"
         os.makedirs(os.path.dirname(image_local_path), exist_ok=True)
         with open(image_local_path, 'wb') as image_file:
@@ -89,7 +90,7 @@ def edit_recipe():
     # ... rest of the code ...
 
     # Update the recipe in SQLite
-    if updated_fields:
+    if 'updated_fields' in locals() and updated_fields:
         update_query = f"UPDATE Recipes SET {', '.join(f'{k} = ?' for k in updated_fields.keys())} WHERE RecipeID = ?"
         cursor.execute(update_query, (*updated_fields.values(), recipe_id))
         conn.commit()
@@ -102,7 +103,7 @@ def delete_recipe():
     # ... rest of the code ...
 
     # Delete the associated image from the local file system (if exists)
-    if recipe.get('ImagePath'):
+    if 'recipe' in locals() and recipe.get('ImagePath'):
         try:
             os.remove(recipe['ImagePath'])
             print("Associated image deleted from local file system.")
@@ -110,7 +111,7 @@ def delete_recipe():
             print(f"Error deleting image from local file system: {e}")
 
     # Delete the associated PDF from the local file system (if exists)
-    if recipe.get('PDFPath'):
+    if 'recipe' in locals() and recipe.get('PDFPath'):
         try:
             os.remove(recipe['PDFPath'])
             print("Associated PDF deleted from local file system.")
