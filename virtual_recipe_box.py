@@ -32,96 +32,50 @@ def add_recipe_manual():
     """Allows the user to manually add a recipe and upload an associated image."""
     # ... rest of the code ...
 
-    # Save the image locally
-    if 'image_path' in locals() and 'image_input' in locals() and os.path.exists(image_path):
-        image_local_path = f"images/{recipe_name.replace(' ', '_')}_{str(uuid.uuid4())}.jpg"
-        os.makedirs(os.path.dirname(image_local_path), exist_ok=True)
-        with open(image_local_path, 'wb') as image_file:
-            image_file.write(requests.get(image_input).content)
-        image_path = image_local_path
-
-    # Add recipe metadata to SQLite
-    try:
-        cursor.execute('''
-            INSERT INTO Recipes (RecipeID, RecipeName, Ingredients, Instructions, Tags, ImagePath)
-            VALUES (?, ?, ?, ?, ?, ?)
-        ''', (recipe_id, recipe_name, ingredients, instructions_str, tags, image_path))
-        conn.commit()
-        print(f"Recipe '{recipe_name}' added successfully!")
-    except Exception as e:
-        print(f"Error saving recipe to SQLite: {e}")
-
 def upload_recipe_pdf():
     """Uploads a recipe PDF, processes its content, and stores metadata in SQLite."""
     # ... rest of the code ...
 
-    # Save the PDF locally
-    pdf_local_path = f"pdfs/{recipe_id}.pdf"
-    os.makedirs(os.path.dirname(pdf_local_path), exist_ok=True)
-    with open(pdf_local_path, 'wb') as pdf_file:
-        pdf_file.write(open(file_path, 'rb').read())
-
-    # Add recipe metadata to SQLite
-    try:
-        cursor.execute('''
-            INSERT INTO Recipes (RecipeID, RecipeName, Ingredients, Instructions, Tags, PDFPath)
-            VALUES (?, ?, ?, ?, ?, ?)
-        ''', (recipe_id, recipe_name, ingredients, instructions, tags, pdf_local_path))
-        conn.commit()
-        print("Recipe metadata saved to SQLite!")
-    except Exception as e:
-        print(f"Error saving recipe to SQLite: {e}")
-
 def search_recipes():
     """Searches recipes by name or tag."""
-    # ... rest of the code ...
-
-    # Query SQLite for recipes
-    cursor.execute('''
-        SELECT * FROM Recipes
-        WHERE RecipeName LIKE ? OR Tags LIKE ?
-    ''', (f"%{search_term}%", f"%{search_term}%"))
-    recipes = cursor.fetchall()
-
     # ... rest of the code ...
 
 def edit_recipe():
     """Edits an existing recipe's details."""
     # ... rest of the code ...
 
-    # Update the recipe in SQLite
-    if 'updated_fields' in locals() and updated_fields:
-        update_query = f"UPDATE Recipes SET {', '.join(f'{k} = ?' for k in updated_fields.keys())} WHERE RecipeID = ?"
-        cursor.execute(update_query, (*updated_fields.values(), recipe_id))
-        conn.commit()
-        print(f"Recipe '{recipe_id}' updated successfully!")
-    else:
-        print("No updates made.")
-
 def delete_recipe():
     """Deletes a recipe and its associated files from SQLite."""
     # ... rest of the code ...
 
-    # Delete the associated image from the local file system (if exists)
-    if 'recipe' in locals() and recipe.get('ImagePath'):
-        try:
-            os.remove(recipe['ImagePath'])
-            print("Associated image deleted from local file system.")
-        except Exception as e:
-            print(f"Error deleting image from local file system: {e}")
+def export_recipe_to_pdf(recipe_id):
+    """Exports a recipe to a nicely formatted PDF file."""
+    # Query SQLite for the recipe
+    cursor.execute('SELECT * FROM Recipes WHERE RecipeID = ?', (recipe_id,))
+    recipe = cursor.fetchone()
 
-    # Delete the associated PDF from the local file system (if exists)
-    if 'recipe' in locals() and recipe.get('PDFPath'):
-        try:
-            os.remove(recipe['PDFPath'])
-            print("Associated PDF deleted from local file system.")
-        except Exception as e:
-            print(f"Error deleting PDF from local file system: {e}")
+    if recipe is None:
+        print(f"Recipe with ID '{recipe_id}' not found.")
+        return
 
-    # Delete the recipe from SQLite
-    cursor.execute('DELETE FROM Recipes WHERE RecipeID = ?', (recipe_id,))
-    conn.commit()
-    print(f"Recipe '{recipe['RecipeName']}' deleted successfully!")
+    # Create a PDF object
+    pdf = FPDF()
+    pdf.add_page()
+
+    # Set font and add recipe details to the PDF
+    pdf.set_font("Arial", size=12)
+    pdf.cell(200, 10, txt=recipe[1], ln=1, align='C')  # Recipe Name
+    pdf.image(recipe[5], x=10, y=30, w=190)  # Image
+    pdf.multi_cell(0, 10, txt=f"Ingredients:\n{recipe[2]}")  # Ingredients
+    pdf.multi_cell(0, 10, txt=f"Instructions:\n{recipe[3]}")  # Instructions
+    pdf.multi_cell(0, 10, txt=f"Tags:\n{recipe[4]}")  # Tags
+
+    # Save the PDF to the local file system
+    pdf_local_path = f"exports/{recipe[1].replace(' ', '_')}_{recipe_id}.pdf"
+    os.makedirs(os.path.dirname(pdf_local_path), exist_ok=True)
+    pdf.output(pdf_local_path)
+
+    print(f"Recipe '{recipe[1]}' exported to PDF: {pdf_local_path}")
 
 # ... rest of the code ...
 
